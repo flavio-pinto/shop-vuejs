@@ -61,3 +61,16 @@ body {
     border-radius: 50%;
     cursor: pointer;
 }
+
+button {
+    display: inline-block;
+    min-width: 150px;
+    height: 40px;
+    margin: 30px 15px 0 0;
+    font-size: 16px;
+    color: #fff;
+    background: linear-gradient(90deg, #66a7b9, #83aa51);
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+}

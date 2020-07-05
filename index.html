@@ -10,12 +10,15 @@
     <div id="app"> <!-- Vue si aggancerà all'id app -->
         <div class="navbar">
             <div class="brand">Vue Shop</div>
-            <div class="cart">Cart</div>
+            <div class="cart">Cart ({{cart.length}})</div>
         </div>
 
         <!-- qui richiamiamo il nome del componente usando un tag custom -->
         <!-- per collegare il premium presente nell'istanza principale al componente, usiamo v-bind:user-premium (ma si può chiamare come si vuole) -->
-        <product v-bind:user-premium="userPremium"></product>
+        <product v-bind:user-premium="userPremium"
+            v-on:add-to-cart="addToCart"
+        >
+        </product>
     </div>
 
     <!-- JS -->

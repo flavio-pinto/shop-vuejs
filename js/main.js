@@ -47,6 +47,10 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
                     </div>
                 </div>
 
+                <button v-on:click="addToCart">
+                    Add to Cart
+                </button>
+
                 <p class="shipping">Shipping: {{shipping}}</p>
             </div>
         </div>
@@ -98,6 +102,10 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
     methods: {
         updateProduct(index) {
             this.selectedVariant = index;
+        },
+        addToCart() {
+            const id = this.variants[this.selectedVariant].id;
+            this.$emit('add-to-cart', id); //con $emit inviamo il dato dal componente attuale al componente che lo contiene, stabilendo col primo parametro un nome per un evento custom da richiamare nel tag product, e come secondo parametro COSA voglio inviare in questa emissione
         }
     }
 }); 
@@ -108,7 +116,13 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
 const app = new Vue({
     el: '#app', //chiede a Vue di cercare l'id app nel DOM
     data: {
-        userPremium: false
+        userPremium: false,
+        cart: []
+    },
+    methods: {
+        addToCart(id) {
+            this.cart.push(id);
+        }
     }
 });
 
