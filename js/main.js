@@ -2,6 +2,12 @@
  * COMPONENTI GLOBALI
  */
 Vue.component('Product', { //i parametri sono il nome del componente e le sue opzioni
+    props: { // per trasferire i dati che vengono dall'istanza principale (const app = new Vue) al figlio servono i props
+        userPremium: {
+            type: Boolean,
+            required: true
+        }
+    },
     template: ` 
         <div class="product">
             <div class="product-image">
@@ -40,6 +46,8 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
                     > 
                     </div>
                 </div>
+
+                <p class="shipping">Shipping: {{shipping}}</p>
             </div>
         </div>
     `, //occhio alle virgolette, sono quelle diverse, per le literal strings!
@@ -82,6 +90,9 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
             const quantity = this.variants[this.selectedVariant].quantity;
             
             return quantity > 0 ? false : true;
+        },
+        shipping() {
+            return this.userPremium ? 'Free' : '2.99€'; //non abbiamo messo un sistema di login, ma per fare la prova se in root tramite console in root e cambiamo userPremium da false a true, cambia anche il prezzo della spedizione
         }
     },
     methods: {
@@ -97,7 +108,7 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
 const app = new Vue({
     el: '#app', //chiede a Vue di cercare l'id app nel DOM
     data: {
-        
+        userPremium: false
     }
 });
 

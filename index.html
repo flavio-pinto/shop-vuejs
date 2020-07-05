@@ -13,7 +13,9 @@
             <div class="cart">Cart</div>
         </div>
 
-        <product></product> <!-- qui richiamiamo il nome del componente usando un tag custom -->
+        <!-- qui richiamiamo il nome del componente usando un tag custom -->
+        <!-- per collegare il premium presente nell'istanza principale al componente, usiamo v-bind:user-premium (ma si può chiamare come si vuole) -->
+        <product v-bind:user-premium="userPremium"></product>
     </div>
 
     <!-- JS -->
