@@ -56,22 +56,11 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
 
                 <p class="shipping">Shipping: {{shipping}}</p>
 
-                <div class="reviews">
-                    <h3>Reviews</h3>
-                    <textarea v-model="actualReview"
-                        v-on:keyup.enter="saveReview"
-                    ></textarea> <!-- grazie a v-model, mentre digitiamo nella textarea aggiorna in automatico il valore di actualReview  -->
-                    <input type="submit" value="Save" v-on:click="saveReview">
-                    <ul>
-                        <li v-for="review in reviews">
-                            {{review}}
-                        </li>
-                    </ul>
-                </div>
+                <reviews></reviews> <!-- richiamiamo il componente personalizzato -->
             </div>
         </div>
     `, //occhio alle virgolette, sono quelle diverse, per le literal strings!
-    data() { // questo è in ES6, sarebbe un po' come scrivere data: function() {} etc...
+    data() { // // metodo che ritorna un oggetto - questo è in ES6, sarebbe un po' come scrivere data: function() {} etc...
         return {
             product: 'Bevanda Colorata',
             brand: 'Italsucchi',
@@ -96,9 +85,7 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
                     quantity: 0,
                     label: 'Green'
                 }
-            ],
-            actualReview: '',
-            reviews: []
+            ]
         }
     },
     computed: { //computed sono metodi che osservano valore di uno dei dati definiti, e ogni volta che il dato cambia, performa le operazioni che noi definiamo. MAI METTERE UNO STESSO NOME IN DATA E IN COMPUTED, ALTRIMENTI NON CAPISCE QUALE UTILIZZARE
@@ -128,13 +115,41 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
         removeFromCart() {
             const id = this.variants[this.selectedVariant].id;
             this.$emit('remove-from-cart', id);
-        },
+        }
+    }
+}); 
+
+/**
+ * COMPONENTE PERSONALIZZATO
+ */
+Vue.component('reviews', {
+    data() { // metodo che ritorna un oggetto
+        return {
+            actualReview: '',
+            reviews: []
+        }
+    },
+    template: `
+        <div class="reviews">
+            <h3>Reviews</h3>
+            <textarea v-model="actualReview"
+                v-on:keyup.enter="saveReview"
+            ></textarea> <!-- grazie a v-model, mentre digitiamo nella textarea aggiorna in automatico il valore di actualReview  -->
+            <input type="submit" value="Save" v-on:click="saveReview">
+            <ul>
+                <li v-for="review in reviews">
+                    {{review}}
+                </li>
+            </ul>
+        </div>
+    `,
+    methods: {
         saveReview() {
             this.reviews.unshift(this.actualReview); //unshift è come append ma mette in cima invece che in fondo
             this.actualReview = '';
         }
     }
-}); 
+});
 
 /**************
  * ISTANZA VUE*
