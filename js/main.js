@@ -50,6 +50,9 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
                 <button v-on:click="addToCart">
                     Add to Cart
                 </button>
+                <button v-on:click="removeFromCart">
+                    Remove from Cart
+                </button>
 
                 <p class="shipping">Shipping: {{shipping}}</p>
             </div>
@@ -106,6 +109,10 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
         addToCart() {
             const id = this.variants[this.selectedVariant].id;
             this.$emit('add-to-cart', id); //con $emit inviamo il dato dal componente attuale al componente che lo contiene, stabilendo col primo parametro un nome per un evento custom da richiamare nel tag product, e come secondo parametro COSA voglio inviare in questa emissione
+        },
+        removeFromCart() {
+            const id = this.variants[this.selectedVariant].id;
+            this.$emit('remove-from-cart', id);
         }
     }
 }); 
@@ -122,6 +129,12 @@ const app = new Vue({
     methods: {
         addToCart(id) {
             this.cart.push(id);
+        },
+        removeFromCart(id) {
+            const position = this.cart.findIndex(p => p === id); //questo è emascript, vedi documentazione
+            if(position !== -1) {
+                this.cart.splice(position, 1)
+            }
         }
     }
 });

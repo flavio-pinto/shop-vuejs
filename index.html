@@ -17,6 +17,7 @@
         <!-- per collegare il premium presente nell'istanza principale al componente, usiamo v-bind:user-premium (ma si può chiamare come si vuole) -->
         <product v-bind:user-premium="userPremium"
             v-on:add-to-cart="addToCart"
+            v-on:remove-from-cart="removeFromCart"
         >
         </product>
     </div>
