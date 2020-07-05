@@ -55,6 +55,19 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
                 </button>
 
                 <p class="shipping">Shipping: {{shipping}}</p>
+
+                <div class="reviews">
+                    <h3>Reviews</h3>
+                    <textarea v-model="actualReview"
+                        v-on:keyup.enter="saveReview"
+                    ></textarea> <!-- grazie a v-model, mentre digitiamo nella textarea aggiorna in automatico il valore di actualReview  -->
+                    <input type="submit" value="Save" v-on:click="saveReview">
+                    <ul>
+                        <li v-for="review in reviews">
+                            {{review}}
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     `, //occhio alle virgolette, sono quelle diverse, per le literal strings!
@@ -83,7 +96,9 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
                     quantity: 0,
                     label: 'Green'
                 }
-            ]
+            ],
+            actualReview: '',
+            reviews: []
         }
     },
     computed: { //computed sono metodi che osservano valore di uno dei dati definiti, e ogni volta che il dato cambia, performa le operazioni che noi definiamo. MAI METTERE UNO STESSO NOME IN DATA E IN COMPUTED, ALTRIMENTI NON CAPISCE QUALE UTILIZZARE
@@ -113,6 +128,10 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
         removeFromCart() {
             const id = this.variants[this.selectedVariant].id;
             this.$emit('remove-from-cart', id);
+        },
+        saveReview() {
+            this.reviews.unshift(this.actualReview); //unshift è come append ma mette in cima invece che in fondo
+            this.actualReview = '';
         }
     }
 }); 
@@ -133,7 +152,7 @@ const app = new Vue({
         removeFromCart(id) {
             const position = this.cart.findIndex(p => p === id); //questo è emascript, vedi documentazione
             if(position !== -1) {
-                this.cart.splice(position, 1)
+                this.cart.splice(position, 1) //splice serve a eliminare dall'array
             }
         }
     }
