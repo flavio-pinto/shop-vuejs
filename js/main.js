@@ -50,7 +50,7 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
             //image: './img/prod-blue.jpg',
             selectedVariant: 0,
             onSale: true,
-            soldOut: true,
+            //soldOut: true,
             price: 10.00,
             details: ['33cl.', 'Glass bottle', 'Alcohol free'],
             variants: [
@@ -65,7 +65,7 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
                     id: 2235,
                     color: '#83aa51',
                     image: './img/prod-green.jpg',
-                    quantity: 5,
+                    quantity: 0,
                     label: 'Green'
                 }
             ]
@@ -77,6 +77,11 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
         },
         image() {
             return this.variants[this.selectedVariant].image; // tra le quadre(che usiamo perché il valore sarà dinamico) ci serve l'index per beccare la posizione esatta dell'elemento, e poi accediamo all'immagine
+        },
+        soldOut() {
+            const quantity = this.variants[this.selectedVariant].quantity;
+            
+            return quantity > 0 ? false : true;
         }
     },
     methods: {
