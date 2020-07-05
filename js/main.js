@@ -11,7 +11,11 @@ Vue.component('Product', { //i parametri sono il nome del componente e le sue op
     template: ` 
         <div class="product">
             <div class="product-image">
-                <img v-bind:src="image" v-bind:alt="title"> <!-- usiamo v-bind: (in alternativa bastano anche i soli duepunti) per bindare l'immagine con vue decisa nel computed apposito -->
+                <!-- vengono create automaticamente delle classi durante l'evento del click -->
+                <!-- out-in significa che il primo che c'è va via e quando va via subentra il nuovo elemento -->
+                <transition name="flip" mode="out-in"> 
+                    <img v-bind:src="image" v-bind:alt="title" v-bind:key="image"> <!-- usiamo v-bind: (in alternativa bastano anche i soli duepunti) per bindare l'immagine con vue decisa nel computed apposito -->
+                </transition>
             </div>
 
             <div class="product-info">

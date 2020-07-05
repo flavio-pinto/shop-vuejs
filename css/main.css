@@ -38,6 +38,17 @@ body {
     flex-basis: 50%;
 }
 
+.flip-enter-active,
+.flip-leave-active {
+    transition: all 0.30s ease-out;
+}
+
+.flip-enter,
+.flip-leave-to {
+    transform: scaleY(0) translateZ(0);
+    opacity: 0;
+}
+
 .product-image img {
     width: 70%;
     margin: 40px;
